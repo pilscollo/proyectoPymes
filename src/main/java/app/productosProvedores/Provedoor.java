@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package logica.clases;
+package app.productosProvedores;
 
 /**
  *
@@ -10,9 +10,11 @@ package logica.clases;
  */
 public class  Provedoor {
     private String nombre;
+    private boolean estado;
 
     public Provedoor(String nombre) {
         this.nombre = nombre;
+        this.estado=true;
     }
 
     public String getNombre() {
@@ -51,6 +53,16 @@ public class  Provedoor {
     public String toString() {
         return "Provedoor{" + "nombre=" + nombre + '}';
     }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void eliminar() {
+        this.estado = false;
+    }
+    
+    
     
     
     

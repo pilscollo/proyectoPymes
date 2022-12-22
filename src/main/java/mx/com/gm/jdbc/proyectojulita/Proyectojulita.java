@@ -7,11 +7,12 @@ import excepciones.error;
 import igu.Pantalla;
 import java.util.ArrayList;
 import logica.clases.Producto;
-import logica.clases.Provedoor;
+import app.productosProvedores.Provedoor;
 
 public class Proyectojulita {
 
     public static void main(String[] args) {
+        System.out.print("hola");
         Productos productos = new Productos();
         Producto p1 = new Producto("Cx3",new Provedoor("juan"),0,10, (float) 100.00,10);
         Producto p2 = new Producto("Cx5",new Provedoor("juan"),3,10, (float) 100.00,10);

@@ -4,9 +4,9 @@
  */
 package colecciones;
 
+import app.productosProvedores.Provedoor;
 import excepciones.error;
 
-import logica.clases.Provedoor;
 import java.util.ArrayList;
 
 /**
@@ -63,6 +63,7 @@ public class Provedores{
             throw new error("Error al eliminar");
         }else
         {
+            
             lista.remove(provedor);
         }
     }

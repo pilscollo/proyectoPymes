@@ -1,6 +1,7 @@
 
 package logica.clases;
 
+import app.productosProvedores.Provedoor;
 import java.util.Objects;
 
 
@@ -21,6 +22,7 @@ public class Producto {
     private float costo;
     private float porcentaje;
     private float precioActual;
+    private boolean estado; 
 
     public Producto(String name, Provedoor provedor, int cantidadVentas, int cantidadStok, float costo, float porcentaje) {
         
@@ -31,6 +33,7 @@ public class Producto {
         this.costo = costo;
         this.porcentaje = porcentaje;
         this.precioActual = actualizarPrecio();
+        this.estado= true;
     }
 
         public Producto(String name) {
@@ -130,6 +133,16 @@ public class Producto {
     public String toString() {
         return "Producto{" + "name=" + name + ", provedor=" + provedor + ", cantidadVentas=" + cantidadVentas + ", cantidadStok=" + cantidadStok + ", costo=" + costo + ", porcentaje=" + porcentaje + ", precioActual=" + precioActual + '}';
     }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void eliminar() {
+        this.estado = false;
+    }
+    
+    
 
     
     
