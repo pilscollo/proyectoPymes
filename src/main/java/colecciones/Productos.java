@@ -1,12 +1,9 @@
 package colecciones;
 
 import excepciones.error;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.TreeMap;
+
+import java.util.*;
+
 import logica.clases.Producto;
 
 
@@ -25,23 +22,22 @@ public class Productos {
         return lista;
     }
 
+
     public ArrayList<Producto> listarOrden()
     {
-        TreeMap<Integer,Producto> productos = new TreeMap<Float,Producto>();
-        for(Producto p: lista)
+        Collections.sort(lista);
+        ArrayList<Producto> listaActivo= new ArrayList<>();
+
+        for(Producto p : lista)
         {
-            productos.put(p.getCantidadVentas(), p);
+            if(p.isEstado())
+            {
+                listaActivo.add(p);
+            }
         }
-        Iterator iterator = productos.entrySet().iterator();
-        
-        ArrayList<Producto> productosEnOrden= new ArrayList<Producto>();
-        while(iterator.hasNext())
-        {
-            Map.Entry<Integer, Producto> entrada = (Entry<Integer, Producto>) iterador.next();
-            productosEnOrden.add(entrada.getValue());
-        }
-        return productosEnOrden;
+        return listaActivo;
     }
+
     public void setLista(ArrayList<Producto> lista) {
         this.lista = lista;
     }
@@ -59,30 +55,30 @@ public class Productos {
         return rta;
     }
     
-    public void agregar(Producto provedor) throws error
+    public void agregar(Producto producto) throws error
     {
-        if(buscar(provedor.getName())!= null)
+        if(buscar(producto.getName())!= null)
         {
             throw new error("Error al agregar");
         }else
         {
-            
-            lista.add(provedor);
+
+            lista.add(producto);
         }
     }
     
-      public void eliminar(Producto provedor) throws error
+      public void eliminar(String producto) throws error
     {
-        if(buscar(provedor.getName())== null)
+        if(buscar(producto)== null)
         {
             throw new error("Error al eliminar");
         }else
         {
             
-            lista.remove(provedor);
+            lista.remove(new Producto(producto));
         }
     }
-       public void cambiar(Producto viejo, Producto nuevo) throws error
+       public void cambiar(String viejo, Producto nuevo) throws error
     {
         
         
@@ -119,5 +115,5 @@ public class Productos {
         return result;
         
       }
-    
+
 }

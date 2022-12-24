@@ -1,11 +1,8 @@
 
 package logica.clases;
 
-import app.productosProvedores.Provedoor;
-import java.util.Objects;
 
-
-public class Producto {
+public class Producto implements Comparable<Producto>{
     /*
     cosas que necesita el producto: 
     *nombre
@@ -36,7 +33,19 @@ public class Producto {
         this.estado= true;
     }
 
-        public Producto(String name) {
+    public Producto(String name, Provedoor provedor, int cantidadVentas, int cantidadStok, float costo, float porcentaje,boolean estado) {
+
+        this.name = name;
+        this.provedor = provedor;
+        this.cantidadVentas = cantidadVentas;
+        this.cantidadStok = cantidadStok;
+        this.costo = costo;
+        this.porcentaje = porcentaje;
+        this.precioActual = actualizarPrecio();
+        this.estado=estado;
+    }
+
+    public Producto(String name) {
         
         this.name = name;
       
@@ -141,9 +150,22 @@ public class Producto {
     public void eliminar() {
         this.estado = false;
     }
-    
-    
 
-    
-    
+
+
+    @Override
+    public int compareTo(Producto o) {
+        if(o.getCantidadVentas()>cantidadVentas)
+        {
+            return -1;
+        }
+        else if(o.getCantidadVentas()>cantidadVentas)
+        {
+            return 0;
+        }else
+        {
+            return 1;
+        }
+
+    }
 }

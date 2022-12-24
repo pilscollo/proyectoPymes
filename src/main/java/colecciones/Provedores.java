@@ -4,7 +4,7 @@
  */
 package colecciones;
 
-import app.productosProvedores.Provedoor;
+import logica.clases.Provedoor;
 import excepciones.error;
 
 import java.util.ArrayList;
@@ -45,37 +45,37 @@ public class Provedores{
         return rta;
     }
     
-    public void agregar(Provedoor provedor) throws error
+    public void agregar(String  provedor) throws error
     {
-        if(buscar(provedor.getNombre())!= null)
+        if(buscar(provedor)!= null)
         {
             throw new error("Error al agregar");
         }else
         {
-            lista.add(provedor);
+
+            lista.add(new Provedoor(provedor));
         }
     }
     
-      public void eliminar(Provedoor provedor) throws error
+      public void eliminar(String provedor) throws error
     {
-        if(buscar(provedor.getNombre())== null)
+        if(buscar(provedor)== null)
         {
             throw new error("Error al eliminar");
         }else
         {
             
-            lista.remove(provedor);
+            lista.remove(new Provedoor(provedor));
         }
     }
        public void cambiar(String nombreViejo, String nombreNuevo) throws error
     {
-        Provedoor viejo = new Provedoor(nombreViejo);
-        Provedoor nuevo = new Provedoor(nombreNuevo);
+
         
         try
         {
-            eliminar(viejo);
-            agregar(nuevo);
+            eliminar(nombreViejo);
+            agregar(nombreNuevo);
             
         }catch(error e)
         {

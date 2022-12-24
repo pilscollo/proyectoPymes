@@ -2,38 +2,78 @@
 
 package mx.com.gm.jdbc.proyectojulita;
 
-import colecciones.Productos;
-import excepciones.error;
-import igu.Pantalla;
-import java.util.ArrayList;
-import logica.clases.Producto;
-import app.productosProvedores.Provedoor;
+
+
+//import igu.InicionSesion;
+import igu.NewJFrame;
+import javax.swing.*;
 
 public class Proyectojulita {
 
     public static void main(String[] args) {
-        System.out.print("hola");
-        Productos productos = new Productos();
-        Producto p1 = new Producto("Cx3",new Provedoor("juan"),0,10, (float) 100.00,10);
-        Producto p2 = new Producto("Cx5",new Provedoor("juan"),3,10, (float) 100.00,10);
-        Producto p3 = new Producto("Cx4",new Provedoor("juan"),2,10, (float) 100.00,10);
-        try{
-        productos.agregar(p1);
-        productos.agregar(p2);
-        productos.agregar(p3);
+
+
+       /* appPP ap = new appPP();
+        appMov app = new appMov();
+
+        try {
+
+            ap.agregar("pablo");
+            ap.agregar("martin");
+            ap.agregar("cx3","martin",10,1,100,10);
+            ap.agregar("cx2","pablo",11,1,100,10);
+            ap.agregar("cx1","martin",10,1,100,10);
+
+
+            LocalDate fecha1= LocalDate.now();
+            LocalDate fecha2= LocalDate.of(2002,12,10);
+            LocalDate fecha3= LocalDate.of(2002,12,9);
+            app.entrada(fecha1,1,"venta de producto cx3",ap.buscar("cx3"));
+            app.entrada(fecha1,1,"venta de producto cx3",ap.buscar("cx3"));
+            app.entrada(fecha2,3,"venta de producto cx3",ap.buscar("cx2"));
+            app.entrada(fecha3,4,"venta de producto cx3",ap.buscar("cx2"));
+            app.salida(fecha3,"venta de producto cx3",100);
+            app.eliminar(1);
+            System.out.println(app.monto());
+            ArrayList<Movimiento> libro= app.listar();
+            for (Movimiento m : libro)
+            {
+                System.out.println(m);
+
+            }
+
+            ArrayList<Producto> products = ap.productosMasVendidos();
+            for(Producto p: products)
+            {
+                System.out.println(p);
+
+            }
+             json j= new json();
+            JSONArray jsonArray = j.MovimientosarrayList(app.listar());
+            System.out.println(jsonArray);
+            ArrayList<Movimiento> movimientos= j.arrayListMovimientos(jsonArray);
+            for(Movimiento movimiento: movimientos)
+            {
+
+                System.out.println(movimiento);
+            }
+
+
+        } catch (error e) {
+            System.out.println(e.getMessage());;
+        }*/
        
-        
-        ArrayList<Producto> productos1 = productos.devolverProductosLista();
-        for(int i=productos1.size()-1; i>=0;i--)
-        {
-            System.out.println(productos1.get(i));
-        }
-        }catch(error e)
-        {
-            System.out.print(e);
-        }
-        /*Pantalla panta = new Pantalla();
+       try
+       {
+        NewJFrame panta = new NewJFrame();
         panta.setVisible(true);
-        panta.setLocationRelativeTo(null);*/
+        panta.setLocationRelativeTo(null);
+        
+       }catch(Exception ex)
+       {
+           System.out.print(ex);
+       }
+
     }
+    
 }

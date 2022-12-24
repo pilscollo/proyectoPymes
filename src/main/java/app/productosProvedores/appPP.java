@@ -9,6 +9,7 @@ import colecciones.Provedores;
 import excepciones.error;
 import java.util.ArrayList;
 import logica.clases.Producto;
+import logica.clases.Provedoor;
 
 /**
  *
@@ -18,20 +19,14 @@ public class appPP {
     
     private Provedores provedores;
     private Productos productos;
-    
-     /*
-       listar
-       agregar productos
-       agregar provedores
-       eliminar producto 
-       eliminar provedor
-       modificar producto 
-       eliminar provedor
-    */
 
     public appPP(Provedores provedores, Productos productos) {
         this.provedores = provedores;
         this.productos = productos;
+    }
+    public appPP() {
+        this.provedores = new Provedores();
+        this.productos = new Productos();
     }
 
     public ArrayList listarProvedores()
@@ -41,18 +36,19 @@ public class appPP {
     
     public ArrayList listarProductos()
     {
-        return provedores.getLista();
+        return productos.getLista();
     }
     public ArrayList productosMasVendidos()
     {
-        return productos.devolverProductosLista();
+        return productos.listarOrden();
     }
     
     
-    public void agregar(String name,String nombreProvedor,int cantidadVentas,int cantidadStok,float costo,float porcentaje) throws error 
+    public void agregar(String name,String nombreProvedor,int cantidadVentas,int cantidadStok,float costo,float porcentaje) throws error
     {
- 
+
         Provedoor provedor = provedores.buscar(nombreProvedor);
+
         if (provedor== null)
         {
             throw new error("error con el provedor");
@@ -60,5 +56,59 @@ public class appPP {
         productos.agregar(new Producto(name,provedor,cantidadVentas,cantidadStok,costo,porcentaje));
         
     }
-    
+    public void agregar(String nombreProvedor) throws error
+    {
+
+        Provedoor provedor = provedores.buscar(nombreProvedor);
+        if (provedor!= null)
+        {
+            throw new error("error con el provedor");
+        }
+        provedores.agregar(nombreProvedor);
+
+    }
+    public void modificar(String nombreViejo,String name,String nombreProvedor,int cantidadVentas,int cantidadStok,float costo,float porcentaje) throws  error
+    {
+        if(productos.buscar(name)==null) {
+            productos.cambiar(nombreViejo, new Producto(name, provedores.buscar(nombreProvedor), cantidadVentas, cantidadStok, costo, porcentaje));
+        }else
+        {
+            throw new error("error al modificar");
+        }
+        }
+
+    public void modificar(String nombreViejo,String nombreNuevo) throws  error
+    {
+        if(provedores.buscar(nombreNuevo)==null) {
+            provedores.cambiar(nombreViejo, nombreNuevo);
+            Provedoor prov= provedores.buscar(nombreNuevo);
+            for(Producto p: productos.getLista())
+            {
+                if(p.getProvedor().getNombre().equals(nombreViejo)) {
+                    p.setProvedor(prov);
+                }
+                }
+        }
+        else
+            {
+                throw new error("error al modificar");
+            }
+    }
+    public void eliminar(String nombre) throws  error
+    {
+        productos.eliminar(nombre);
+    }
+    public  void eliminarProve(String nombre) throws error
+    {
+        provedores.eliminar(nombre);
+    }
+    public Producto buscar(String nombre) throws error
+    {
+        return productos.buscar(nombre);
+    }
+    public Provedoor buscarProve(String nombre) throws error
+    {
+        return provedores.buscar(nombre);
+    }
+
 }
