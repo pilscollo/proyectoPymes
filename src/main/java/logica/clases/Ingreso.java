@@ -8,7 +8,7 @@ public class Ingreso extends Movimiento {
     private float monto;//se saca con el precio del producto y la cantidad
 
     public Ingreso(int id,LocalDate fecha,int cantidad, String detalle, Producto producto) {
-        super(id,fecha,detalle,1);
+        super(id,fecha,"se vendio "+String.valueOf(cantidad)+" de "+ producto.getName(),1);
 
         this.cantidad=cantidad;
         this.producto = producto;
@@ -19,6 +19,13 @@ public class Ingreso extends Movimiento {
 
         this.cantidad=cantidad;
         this.producto = producto;
+        this.monto = producto.getPrecioActual()* cantidad;
+    }
+
+    public Ingreso() {
+        super(1,LocalDate.now(),"",true,1);
+         this.cantidad=0;
+        this.producto = new Producto();
         this.monto = producto.getPrecioActual()* cantidad;
     }
 

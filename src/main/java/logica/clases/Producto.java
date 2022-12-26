@@ -44,6 +44,17 @@ public class Producto implements Comparable<Producto>{
         this.precioActual = actualizarPrecio();
         this.estado=estado;
     }
+    public Producto() {
+
+        this.name = "";
+        this.provedor =new Provedoor();
+        this.cantidadVentas = 0;
+        this.cantidadStok = 0;
+        this.costo = 0;
+        this.porcentaje = 0;
+        this.precioActual = 0;
+        this.estado=false;
+    }
 
     public Producto(String name) {
         

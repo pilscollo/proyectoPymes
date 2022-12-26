@@ -135,10 +135,11 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_userActionPerformed
 
     private void enviar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviar1ActionPerformed
-        System.out.print("hola");
+        
         String valorPass = new String(Password.getPassword());
         if(user.getText().equals("admin") && valorPass.equals("1234") )
         {
+            this.setVisible(false);
             
              try
             {
@@ -152,7 +153,7 @@ public class NewJFrame extends javax.swing.JFrame {
        }
         }else
         {
-            System.out.print("hola");
+           
              JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
         }
     }//GEN-LAST:event_enviar1ActionPerformed

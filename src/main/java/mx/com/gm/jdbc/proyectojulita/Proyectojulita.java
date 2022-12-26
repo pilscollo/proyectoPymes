@@ -5,10 +5,15 @@ package mx.com.gm.jdbc.proyectojulita;
 
 
 //import igu.InicionSesion;
+import archivo.Archivo;
 import igu.NewJFrame;
+import igu.libro;
+import igu.producto;
+import java.io.File;
 import javax.swing.*;
 
 public class Proyectojulita {
+
 
     public static void main(String[] args) {
 
@@ -62,7 +67,12 @@ public class Proyectojulita {
         } catch (error e) {
             System.out.println(e.getMessage());;
         }*/
+
        
+       Archivo.crearArchivo("caja.bin");
+       Archivo.crearArchivo("libro.bin");
+       Archivo.crearArchivo("producto.bin");
+       Archivo.crearArchivo("provedor.bin");
        try
        {
         NewJFrame panta = new NewJFrame();
@@ -73,6 +83,20 @@ public class Proyectojulita {
        {
            System.out.print(ex);
        }
+       
+       
+       /*
+       try
+       {
+        producto panta = new producto();
+        panta.setVisible(true);
+        panta.setLocationRelativeTo(null);
+        
+       }catch(Exception ex)
+       {
+           System.out.print(ex);
+       }*/
+       
 
     }
     

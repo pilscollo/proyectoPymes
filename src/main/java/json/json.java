@@ -22,6 +22,38 @@ public  class json {
     * caja-json
     * json-caja
      */
+    public JSONArray cajaAJson(Caja caja)
+    {
+        JSONArray jsonCaja = new JSONArray();
+        try {
+            jsonCaja.put(caja.getMonto());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonCaja;
+    }
+
+    public Caja jsonACaja(JSONArray caja)
+    {
+        Caja cajaofi=new Caja(0);
+        try {
+            
+            int num= caja.length();
+            if(num!=0)
+            {
+                System.out.println(num);
+            cajaofi= new Caja((float)caja.getDouble(num-1));
+            }else
+            {
+                cajaofi= new Caja(0);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return cajaofi;
+    }
 
     public JSONObject provedorAJson(Provedoor provedor)
     {
@@ -93,7 +125,7 @@ public  class json {
         JSONObject json= new JSONObject();
         try {
             json.put("id",ingreso.getId());
-            json.put("año",ingreso.getFecha().getYear());
+            json.put("ano",ingreso.getFecha().getYear());
             json.put("mes",ingreso.getFecha().getMonthValue());
             json.put("dia",ingreso.getFecha().getDayOfMonth());
             json.put("cantidad",ingreso.getCantidad());
@@ -113,7 +145,7 @@ public  class json {
         JSONObject json= new JSONObject();
         try {
             json.put("id",ingreso.getId());
-            json.put("año",ingreso.getFecha().getYear());
+            json.put("ano",ingreso.getFecha().getYear());
             json.put("mes",ingreso.getFecha().getMonthValue());
             json.put("dia",ingreso.getFecha().getDayOfMonth());
             json.put("detalle",ingreso.getDetalle());
@@ -131,9 +163,9 @@ public  class json {
 
     public Ingreso jsonAIngreso(JSONObject jsonIngreso)
     {
-        Ingreso ingreso = null;
+        Ingreso ingreso = new Ingreso();
         try {
-            ingreso = new Ingreso(jsonIngreso.getInt("id"), LocalDate.of(jsonIngreso.getInt("año"),jsonIngreso.getInt("mes"),jsonIngreso.getInt("dia")),jsonIngreso.getInt("cantidad"),jsonIngreso.getString("detalle"),jsonAproducto(jsonIngreso.getJSONObject("producto")),jsonIngreso.getBoolean("estado"));
+            ingreso = new Ingreso(jsonIngreso.getInt("id"), LocalDate.of(jsonIngreso.getInt("ano"),jsonIngreso.getInt("mes"),jsonIngreso.getInt("dia")),jsonIngreso.getInt("cantidad"),jsonIngreso.getString("detalle"),jsonAproducto(jsonIngreso.getJSONObject("producto")),jsonIngreso.getBoolean("estado"));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -157,7 +189,7 @@ public  class json {
 
         Egreso egreso = null;
         try {
-            egreso = new Egreso(jsonIngreso.getInt("id"), LocalDate.of(jsonIngreso.getInt("año"),jsonIngreso.getInt("mes"),jsonIngreso.getInt("dia")),jsonIngreso.getString("detalle"),(float)jsonIngreso.getDouble("monto"),jsonIngreso.getBoolean("estado"));
+            egreso = new Egreso(jsonIngreso.getInt("id"), LocalDate.of(jsonIngreso.getInt("ano"),jsonIngreso.getInt("mes"),jsonIngreso.getInt("dia")),jsonIngreso.getString("detalle"),(float)jsonIngreso.getDouble("monto"),jsonIngreso.getBoolean("estado"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

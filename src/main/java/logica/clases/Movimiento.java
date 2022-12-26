@@ -20,6 +20,10 @@ public class Movimiento implements Comparable<Movimiento> {
         this.tipo=tipo;
 
     }
+     public Movimiento() {
+       
+
+    }
     public Movimiento(int id,LocalDate fecha, String detalle,boolean estado,int tipo) {
         this.fecha = fecha;
         this.id=id;

@@ -16,6 +16,10 @@ public class  Provedoor {
         this.nombre = nombre;
         this.estado=true;
     }
+       public Provedoor() {
+        this.nombre = "";
+        this.estado=false;
+    }
     public Provedoor(String nombre,boolean estado) {
         this.nombre = nombre;
         this.estado=estado;

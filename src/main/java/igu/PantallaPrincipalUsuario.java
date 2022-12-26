@@ -4,6 +4,27 @@
  */
 package igu;
 
+import app.movimientos.appMov;
+import app.productosProvedores.appPP;
+import archivo.Archivo;
+import colecciones.Libro;
+import colecciones.Productos;
+import colecciones.Provedores;
+import java.util.ArrayList;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import json.json;
+import logica.clases.Caja;
+import logica.clases.Egreso;
+import logica.clases.Ingreso;
+import logica.clases.Movimiento;
+import logica.clases.Producto;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  *
  * @author Win10
@@ -13,11 +34,67 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
     /**
      * Creates new form PantallaPrincipalUsuario
      */
+    private appMov movimientos;
+    private appPP stock;
     public PantallaPrincipalUsuario() {
+        
         initComponents();
+        this.movimientos = cargarAppMov();
+        this.stock= cargarAppPP();
         this.setLocationRelativeTo(null);
     }
+    public  appMov cargarAppMov()
+    {
+        String lib =Archivo.leer("libro.bin");
+        String caj =Archivo.leer("caja.bin");
+        appMov app=new appMov();
+        
+        
+        json j= new json();
+        JSONArray array;
+        JSONObject obj;
+        try {
+            array = new JSONArray(lib);
+            ArrayList<Movimiento> movimientos= j.arrayListMovimientos(array);
+            Libro l= new Libro(movimientos);
+            
+            Caja caja= j.jsonACaja(new JSONArray(caj));
+            
+            app= new appMov(caja,l);
+            
+            
+        } catch (JSONException ex) {
+            Logger.getLogger(PantallaPrincipalUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return app;
+    }
 
+    public appPP cargarAppPP()
+    {
+        String prov= Archivo.leer("provedor.bin");
+        String produc= Archivo.leer("producto.bin");
+        
+        appPP app= new appPP();
+        json j= new json();
+        JSONArray array1;
+        JSONArray array2;
+        try {
+            array1 = new JSONArray(produc);
+            Productos prod= new Productos(j.arrayListProducto(array1));
+        
+           
+            array2 = new JSONArray(prov);
+            
+            Provedores prove= new Provedores(j.arrayListProvedores(array2));
+            app= new appPP(prove,prod);
+            
+            
+        } catch (JSONException ex) {
+            Logger.getLogger(PantallaPrincipalUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return app;
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,12 +110,22 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        producto = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        libro = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -55,15 +142,15 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jButton2.setBackground(new java.awt.Color(55, 76, 71));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Productos");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        producto.setBackground(new java.awt.Color(55, 76, 71));
+        producto.setForeground(new java.awt.Color(255, 255, 255));
+        producto.setText("Productos");
+        producto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                productoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 110, 60));
+        getContentPane().add(producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 110, 60));
 
         jButton3.setBackground(new java.awt.Color(55, 76, 71));
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
@@ -73,17 +160,17 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 110, 60));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 110, 60));
 
-        jButton4.setBackground(new java.awt.Color(55, 76, 71));
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Libro Diario");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        libro.setBackground(new java.awt.Color(55, 76, 71));
+        libro.setForeground(new java.awt.Color(255, 255, 255));
+        libro.setText("Libro Diario");
+        libro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                libroActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 110, 60));
+        getContentPane().add(libro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 110, 60));
 
         jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\fondopantallausuario.png")); // NOI18N
         jLabel5.setText("jLabel5");
@@ -100,41 +187,119 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
         });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 40, 40));
 
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 2, 24)); // NOI18N
+        jLabel6.setText("¡Bienvenido!");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 220, 50));
+
+        jLabel9.setText("Hola querido usuario...");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, -1, 20));
+
+        jLabel11.setText("Este es una pequeña guia para el entendimiento de la aplica-");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, -1, 30));
+
+        jLabel12.setText("ción");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, -1, 30));
+
+        jLabel13.setText("Productos: gestion de stock y sugerencia de precio");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, -1, 30));
+
+        jLabel14.setText("Libro Diario: registro de entradas y salidas (ventas y compras)");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, -1, 30));
+
+        jLabel15.setText("el porcentaje de ganancias");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, -1, 30));
+
+        jLabel16.setText("El precio del producto se calcula a partir del costo y ");
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, -1, 30));
+
+        jLabel7.setBackground(new java.awt.Color(153, 255, 153));
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\Diseño sin título (9).png")); // NOI18N
+        jLabel7.setText("jLabel7");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 380, 260));
+
         jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\fondopantallausuario (1).png")); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 540));
+
+        jLabel10.setText("Hola querido usuario... ");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productoActionPerformed
+        producto li= new producto();
+        li.setVisible(true);
+        
+    }//GEN-LAST:event_productoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void libroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_libroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        //pantalla libro
+        
+        libro li= new libro(movimientos,stock);
+       
+        li.setVisible(true);
+        javax.swing.JTable table= li.getTable();
+        DefaultTableModel modelo= (DefaultTableModel)table.getModel();
+       if(movimientos!=null)
+        {
+        javax.swing.JLabel aux= li.texto();
+        
+        aux.setText("Caja: " + String.valueOf(movimientos.monto()));
+        ArrayList<Movimiento> mov= movimientos.listar();
+        for(Movimiento m: mov)
+        {
+            if(m.getTipo()==1)
+            {
+               Ingreso i= (Ingreso)m;
+               String[] st= {String.valueOf(i.getId()),i.getFecha().toString(),i.getDetalle(),"0",String.valueOf(i.getMonto())};
+               modelo.addRow(st);
+            }else
+            {
+               Egreso i= (Egreso)m;
+               String[] st= {String.valueOf(i.getId()),i.getFecha().toString(),i.getDetalle(),String.valueOf(i.getMonto()),"0"};
+               modelo.addRow(st);
+            }
+            
+        }
+        }
+        li.setLocationRelativeTo(null);
+        
+    }//GEN-LAST:event_libroActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         System.exit(0);
+        /*guardar productos y libro*/
     }//GEN-LAST:event_jButton5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JButton libro;
+    private javax.swing.JButton producto;
     // End of variables declaration//GEN-END:variables
 }
