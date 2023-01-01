@@ -11,28 +11,36 @@ public class Movimiento implements Comparable<Movimiento> {
     private String detalle;
     private boolean estado;
     private int tipo;
-
-    public Movimiento(int id,LocalDate fecha, String detalle,int tipo) {
+    private float monto;
+    public Movimiento(int id,LocalDate fecha, String detalle,int tipo,float cant) {
         this.fecha = fecha;
         this.id=id;
         this.detalle = detalle;
         this.estado= true;
         this.tipo=tipo;
+        this.monto= cant;
 
     }
      public Movimiento() {
        
 
     }
-    public Movimiento(int id,LocalDate fecha, String detalle,boolean estado,int tipo) {
+    public Movimiento(int id,LocalDate fecha, String detalle,boolean estado,int tipo,float cant) {
         this.fecha = fecha;
         this.id=id;
         this.detalle = detalle;
         this.estado= estado;
         this.tipo=tipo;
+        this.monto= cant;
     }
 
+    public float getMonto() {
+        return monto;
+    }
 
+    public void setMonto(float monto) {
+        this.monto = monto;
+    }
     public LocalDate getFecha() {
         return fecha;
     }

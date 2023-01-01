@@ -8,6 +8,7 @@ import app.movimientos.appMov;
 import app.productosProvedores.appPP;
 import java.awt.FlowLayout;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,13 +24,11 @@ public class libro extends javax.swing.JFrame {
     /**
      * Creates new form libro
      */
-    private appMov mov;
-    private appPP pro;
-    public libro(appMov apM,appPP p) {
+
+    public libro() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.mov=apM;
-        this.pro=p;
+
         
     }
 
@@ -45,10 +44,10 @@ public class libro extends javax.swing.JFrame {
         jFrame1 = new javax.swing.JFrame();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        agregar = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        agregar1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,31 +66,34 @@ public class libro extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(table);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 560, 170));
 
-        agregar.setBackground(new java.awt.Color(214, 188, 192));
-        agregar.setForeground(new java.awt.Color(255, 255, 255));
-        agregar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\1904677-add-addition-calculate-charge-create-new-plus_122527.png")); // NOI18N
-        agregar.addActionListener(new java.awt.event.ActionListener() {
+        eliminar.setBackground(new java.awt.Color(214, 188, 192));
+        eliminar.setForeground(new java.awt.Color(255, 255, 255));
+        eliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Documents\\NetBeansProjects\\proyectojulita\\src\\main\\java\\im\\sacar.png")); // NOI18N
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarActionPerformed(evt);
+                eliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 50, -1, 50));
-
-        eliminar.setBackground(new java.awt.Color(214, 188, 192));
-        eliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\1904666-calculate-close-delete-hide-minimize-minus-remove_122516 (1).png")); // NOI18N
-        getContentPane().add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, -1, 60));
+        getContentPane().add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 150, -1, 50));
 
         jButton5.setBackground(new java.awt.Color(221, 204, 207));
-        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\1486564399-close_81512.png")); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Documents\\NetBeansProjects\\proyectojulita\\src\\main\\java\\im\\cruz.png")); // NOI18N
         jButton5.setAlignmentY(0.0F);
         jButton5.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -105,26 +107,47 @@ public class libro extends javax.swing.JFrame {
         jLabel2.setText("Caja: ");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 100, 100, 50));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\fondopantallausuario (2).png")); // NOI18N
+        agregar1.setBackground(new java.awt.Color(214, 188, 192));
+        agregar1.setForeground(new java.awt.Color(255, 255, 255));
+        agregar1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Documents\\NetBeansProjects\\proyectojulita\\src\\main\\java\\im\\agregar.png")); // NOI18N
+        agregar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregar1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(agregar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 50, -1, 50));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Documents\\NetBeansProjects\\proyectojulita\\src\\main\\java\\im\\libro.png")); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 560));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-
-        ingresoOEgreso i= new ingresoOEgreso(pro.productosMasVendidos());
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        formularioLibro i= new formularioLibro();
         
         i.setVisible(true);
-    }//GEN-LAST:event_agregarActionPerformed
+        this.setVisible(false);
+         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        
+    }//GEN-LAST:event_eliminarActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         this.setVisible(false);
         PantallaPrincipalUsuario li= new PantallaPrincipalUsuario();
         li.setVisible(true);
         li.setLocationRelativeTo(null);
+
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void agregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar1ActionPerformed
+        ingresoOEgreso i= new ingresoOEgreso();
+        
+        i.setVisible(true);
+        this.setVisible(false);
+         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    }//GEN-LAST:event_agregar1ActionPerformed
 
     javax.swing.JTable getTable()
     {
@@ -139,7 +162,7 @@ public class libro extends javax.swing.JFrame {
    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton agregar;
+    private javax.swing.JButton agregar1;
     private javax.swing.JButton eliminar;
     private javax.swing.JButton jButton5;
     private javax.swing.JFrame jFrame1;

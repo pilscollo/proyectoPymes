@@ -34,11 +34,20 @@ public class appMov {
         return caja.getMonto();
     }
 
-    public void entrada(LocalDate fecha, int cantidad, String detalle, Producto producto)
+    public void entrada(Movimiento mov)
     {
-        Ingreso entrada = new Ingreso(libro.cantidad(),fecha,cantidad,detalle,producto);
+        if(mov.getTipo()==1)
+        {
+        Ingreso entrada = (Ingreso) mov;
         libro.agregar(entrada);
+        System.out.println(entrada.getMonto());
         caja.setMonto(caja.getMonto()+entrada.getMonto());
+        }else
+        {
+        Egreso entrada =(Egreso) mov;
+        libro.agregar(entrada);
+        caja.setMonto(caja.getMonto()-entrada.getMonto());
+        }
     }
     public void salida(LocalDate fecha, String detalle,float monto)
     {

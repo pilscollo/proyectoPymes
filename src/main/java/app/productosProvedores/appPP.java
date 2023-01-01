@@ -67,6 +67,19 @@ public class appPP {
         provedores.agregar(nombreProvedor);
 
     }
+    public void venta(String nombre,int cant) throws error
+    {
+
+        Producto pro= buscar(nombre);
+        if(pro!=null && pro.isEstado() && pro.getCantidadStok()-cant>=0)
+        {
+            pro.setCantidadVentas(pro.getCantidadVentas()+cant);
+            pro.setCantidadStok(pro.getCantidadStok()-cant);
+            eliminar(nombre);
+            agregar(pro.getName(),pro.getProvedor().getNombre(),pro.getCantidadVentas(),pro.getCantidadStok(),pro.getCosto(),pro.getPorcentaje());
+        }else
+        {throw  new error("error en la venta");}
+    }
     public void modificar(String nombreViejo,String name,String nombreProvedor,int cantidadVentas,int cantidadStok,float costo,float porcentaje) throws  error
     {
         if(productos.buscar(name)==null) {

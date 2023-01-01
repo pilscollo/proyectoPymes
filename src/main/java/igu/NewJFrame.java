@@ -4,7 +4,10 @@
  */
 package igu;
 
-import javax.swing.JOptionPane;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.*;
+import java.util.Objects;
 
 /**
  *
@@ -15,9 +18,12 @@ public class NewJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+
     public NewJFrame() {
+        
         initComponents();
         this.setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -59,7 +65,7 @@ public class NewJFrame extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, -1, -1));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\avatardefault_92824.png")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Documents\\NetBeansProjects\\proyectojulita\\src\\main\\java\\im\\avatardefault_92824.png")); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 130, 130));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
 
@@ -104,7 +110,7 @@ public class NewJFrame extends javax.swing.JFrame {
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, -1, -1));
 
         jButton2.setBackground(new java.awt.Color(153, 201, 229));
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\1486564399-close_81512.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Documents\\NetBeansProjects\\proyectojulita\\src\\main\\java\\im\\cruz.png")); // NOI18N
         jButton2.setAlignmentY(0.0F);
         jButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +121,7 @@ public class NewJFrame extends javax.swing.JFrame {
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 10, 40, 40));
 
         jLabel1.setForeground(new java.awt.Color(51, 204, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\fondousuario.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Documents\\NetBeansProjects\\proyectojulita\\src\\main\\java\\im\\pyi.png")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 500));
 
         pack();
@@ -182,4 +188,5 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
+
 }

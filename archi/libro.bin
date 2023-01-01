@@ -1,0 +1,1 @@
+[{"estado":true,"tipo":1,"ano":2023,"mes":1,"id":1,"cantidad":1,"producto":{"estado":true,"costo":10,"name":"medias1","provedor":{"estado":true,"nombre":"mariano"},"ventas":0,"stok":2,"porcentaje":50},"dia":1,"detalle":"se vendio 1 de medias1"}]

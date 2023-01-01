@@ -23,9 +23,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Win10\Desktop\imagenesAPP\fondopantallausuario.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="jLabel2"/>
       </Properties>
     </Component>
@@ -84,26 +81,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="200" width="110" height="60"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="47" green="4c" red="37" type="rgb"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Tools"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
-      </Events>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="320" width="110" height="60"/>
+          <AbsoluteConstraints x="10" y="340" width="110" height="60"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -122,14 +100,14 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="70" width="110" height="60"/>
+          <AbsoluteConstraints x="10" y="130" width="110" height="60"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Win10\Desktop\imagenesAPP\fondopantallausuario.png"/>
+          <Image iconType="2" name="C:\Users\Win10\Documents\NetBeansProjects\proyectojulita\src\main\java\im\fondopantallausuario.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="jLabel5"/>
       </Properties>
@@ -145,7 +123,7 @@
           <Color blue="73" green="a9" red="69" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Win10\Desktop\imagenesAPP\1486564399-close_81512.png"/>
+          <Image iconType="2" name="C:\Users\Win10\Documents\NetBeansProjects\proyectojulita\src\main\java\im\cruz.png"/>
         </Property>
         <Property name="alignmentY" type="float" value="0.0"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -250,20 +228,20 @@
           <Color blue="99" green="ff" red="99" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Win10\Desktop\imagenesAPP\Dise&#xf1;o sin t&#xed;tulo (9).png"/>
+          <Image iconType="2" name="C:\Users\Win10\Documents\NetBeansProjects\proyectojulita\src\main\java\im\fondopantallausuario.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="jLabel7"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="250" y="100" width="380" height="260"/>
+          <AbsoluteConstraints x="230" y="90" width="420" height="260"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Win10\Desktop\imagenesAPP\fondopantallausuario (1).png"/>
+          <Image iconType="2" name="C:\Users\Win10\Documents\NetBeansProjects\proyectojulita\src\main\java\im\fondopantallausuario (1).png"/>
         </Property>
       </Properties>
       <Constraints>

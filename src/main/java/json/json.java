@@ -1,12 +1,14 @@
 package json;
 
 import logica.clases.*;
+
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 public  class json {
 
@@ -44,9 +46,6 @@ public  class json {
             {
                 System.out.println(num);
             cajaofi= new Caja((float)caja.getDouble(num-1));
-            }else
-            {
-                cajaofi= new Caja(0);
             }
         } catch (JSONException e) {
             e.printStackTrace();

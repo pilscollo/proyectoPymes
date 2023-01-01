@@ -5,28 +5,27 @@ import java.time.LocalDate;
 public class Ingreso extends Movimiento {
     private Producto producto;
     private int cantidad;
-    private float monto;//se saca con el precio del producto y la cantidad
 
-    public Ingreso(int id,LocalDate fecha,int cantidad, String detalle, Producto producto) {
-        super(id,fecha,"se vendio "+String.valueOf(cantidad)+" de "+ producto.getName(),1);
 
+    public Ingreso(int id,LocalDate fecha,int cantidad, Producto producto) {
+
+        super(id,fecha,"se vendio "+String.valueOf(cantidad)+" de "+ producto.getName(),true,1,producto.getPrecioActual()* cantidad);
         this.cantidad=cantidad;
         this.producto = producto;
-        this.monto = producto.getPrecioActual()* cantidad;
     }
     public Ingreso(int id,LocalDate fecha,int cantidad, String detalle, Producto producto,boolean estado) {
-        super(id,fecha,detalle,estado,1);
+        super(id,fecha,detalle,estado,1,producto.getPrecioActual()* cantidad);
 
         this.cantidad=cantidad;
         this.producto = producto;
-        this.monto = producto.getPrecioActual()* cantidad;
+
     }
 
     public Ingreso() {
-        super(1,LocalDate.now(),"",true,1);
+        super(1,LocalDate.now(),"",true,1,0);
          this.cantidad=0;
         this.producto = new Producto();
-        this.monto = producto.getPrecioActual()* cantidad;
+
     }
 
     public int getCantidad() {
@@ -45,20 +44,14 @@ public class Ingreso extends Movimiento {
         this.producto = producto;
     }
 
-    public float getMonto() {
-        return monto;
-    }
 
-    public void setMonto(float monto) {
-        this.monto = monto;
-    }
 
     @Override
     public String toString() {
         return super.toString() +"Ingreso{" +
                 "producto=" + producto +
                 ", cantidad=" + cantidad +
-                ", monto=" + monto +
+                ", monto=" +
                 '}';
     }
 }

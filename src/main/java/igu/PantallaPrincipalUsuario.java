@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import excepciones.error;
 import json.json;
-import logica.clases.Caja;
-import logica.clases.Egreso;
-import logica.clases.Ingreso;
-import logica.clases.Movimiento;
-import logica.clases.Producto;
+import logica.clases.*;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +41,128 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
         initComponents();
         this.movimientos = cargarAppMov();
         this.stock= cargarAppPP();
+
         this.setLocationRelativeTo(null);
+    }
+    public float caja()
+    {
+        return movimientos.monto();
+    }
+    public  void actualizarMovimientos(Movimiento mov)
+    {
+        
+        movimientos.entrada(mov);
+        json j= new json();
+        Archivo.grabar(j.MovimientosarrayList(movimientos.listar()), "libro.bin");
+
+
+    }
+
+
+    public  void actualizarMovimientos()
+    {
+        json j= new json();
+        Archivo.grabar(j.MovimientosarrayList(movimientos.listar()), "libro.bin");
+
+
+
+    }
+    public  void eliminarProducto(String nom)
+    {
+        System.out.println("holaaa");
+        try {
+            stock.eliminar(nom);
+            actualizarProductos();
+        } catch (error e) {
+            e.printStackTrace();
+        }
+    }
+    public Producto buscarProducto(String nom)
+    {
+        try {
+            return stock.buscar(nom);
+        } catch (error e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public float montoCaja(int id)
+    {
+
+        float rta=0;
+        if(movimientos.buscar(id)==null)
+        {
+            rta=-1;
+        }else {rta= movimientos.buscar(id).getMonto();}
+        return  rta;
+
+
+    }
+    public int tipo(int id)
+    {
+        int rta=0;
+        if(movimientos.buscar(id)==null)
+        {
+            rta=-1;
+        }else {rta= movimientos.buscar(id).getTipo();}
+        return  rta;
+    }
+     public  void actualizarProductos()
+    {
+
+        json j= new json();
+        Archivo.grabar(j.ProductoarrayList(stock.listarProductos()), "producto.bin");
+        this.stock= cargarAppPP();
+
+    }
+    public  void actualizarProductos(String nombre, int cant)
+    {
+
+        try {
+            stock.venta(nombre,cant);
+        } catch (error e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"error en la venta");
+        }
+        json j= new json();
+        Archivo.grabar(j.ProductoarrayList(stock.listarProductos()), "producto.bin");
+        this.stock= cargarAppPP();
+
+    }
+    public  void actualizarProductos(Producto pro)
+    {
+        try {
+            stock.agregar(pro.getName(),pro.getProvedor().getNombre(),pro.getCantidadVentas(),pro.getCantidadStok(),pro.getCosto(),pro.getPorcentaje());
+        } catch (error e) {
+            JOptionPane.showMessageDialog(null,"error");
+        }
+        json j= new json();
+        Archivo.grabar(j.ProductoarrayList(stock.listarProductos()), "producto.bin");
+        this.stock= cargarAppPP();
+
+    }
+       public  void actualizarProvedores()
+    {
+        json j= new json();
+        Archivo.grabar(j.ProvedoresarrayList(stock.listarProvedores()), "provedor.bin");
+        this.stock= cargarAppPP();    
+    }
+    public  void actualizarProvedores(Provedoor pro)
+    {
+        try {
+            stock.agregar(pro.getNombre());
+        } catch (error e) {
+            e.printStackTrace();
+        }
+        json j= new json();
+        Archivo.grabar(j.ProvedoresarrayList(stock.listarProvedores()), "provedor.bin");
+        this.stock= cargarAppPP();
+    }
+    public  void actualizarCaja(float monto)
+    {
+        json j= new json();
+        Archivo.grabar(j.cajaAJson(new Caja(monto)), "caja.bin");
+        this.movimientos = cargarAppMov();
     }
     public  appMov cargarAppMov()
     {
@@ -55,10 +176,18 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
         JSONObject obj;
         try {
             array = new JSONArray(lib);
-            ArrayList<Movimiento> movimientos= j.arrayListMovimientos(array);
+            ArrayList<Movimiento> movimientos= new ArrayList<>();
+            if(array.length()!= 0) {
+                movimientos = j.arrayListMovimientos(array);
+            }
             Libro l= new Libro(movimientos);
-            
-            Caja caja= j.jsonACaja(new JSONArray(caj));
+            Caja caja=null;
+            if(caj.equals("[]"))
+            {
+                caja = new Caja(0);
+            }else {
+                caja = new Caja(new JSONArray(caj).getInt(0));
+            }
             
             app= new appMov(caja,l);
             
@@ -69,6 +198,10 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
         return app;
     }
 
+    public Movimiento devolverMov(int id)
+    {
+        return movimientos.buscar(id);
+    }
     public appPP cargarAppPP()
     {
         String prov= Archivo.leer("provedor.bin");
@@ -80,20 +213,30 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
         JSONArray array2;
         try {
             array1 = new JSONArray(produc);
-            Productos prod= new Productos(j.arrayListProducto(array1));
-        
-           
+            Provedores prove = new Provedores();
+            Productos prod = new Productos();
+            if (array1.length() != 0) {
+                prod = new Productos(j.arrayListProducto(array1));
+            }
+
             array2 = new JSONArray(prov);
+
+            if (array2.length() !=0) {
+                prove = new Provedores(j.arrayListProvedores(array2));
+            }
+            app = new appPP(prove, prod);
+
             
-            Provedores prove= new Provedores(j.arrayListProvedores(array2));
-            app= new appPP(prove,prod);
-            
-            
+
         } catch (JSONException ex) {
             Logger.getLogger(PantallaPrincipalUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         return app;
         
+    }
+    public void eliminarMovimiento(int id)
+    {
+        movimientos.eliminar(id);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,7 +254,6 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         producto = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         libro = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
@@ -133,7 +275,6 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
 
         jMenuItem2.setText("jMenuItem2");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\fondopantallausuario.png")); // NOI18N
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -150,17 +291,7 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
                 productoActionPerformed(evt);
             }
         });
-        getContentPane().add(producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 110, 60));
-
-        jButton3.setBackground(new java.awt.Color(55, 76, 71));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Tools");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 110, 60));
+        getContentPane().add(producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 110, 60));
 
         libro.setBackground(new java.awt.Color(55, 76, 71));
         libro.setForeground(new java.awt.Color(255, 255, 255));
@@ -170,14 +301,14 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
                 libroActionPerformed(evt);
             }
         });
-        getContentPane().add(libro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 110, 60));
+        getContentPane().add(libro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 110, 60));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\fondopantallausuario.png")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Documents\\NetBeansProjects\\proyectojulita\\src\\main\\java\\im\\fondopantallausuario.png")); // NOI18N
         jLabel5.setText("jLabel5");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 540));
 
         jButton5.setBackground(new java.awt.Color(105, 169, 115));
-        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\1486564399-close_81512.png")); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Documents\\NetBeansProjects\\proyectojulita\\src\\main\\java\\im\\cruz.png")); // NOI18N
         jButton5.setAlignmentY(0.0F);
         jButton5.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -213,11 +344,11 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, -1, 30));
 
         jLabel7.setBackground(new java.awt.Color(153, 255, 153));
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\Diseño sin título (9).png")); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Documents\\NetBeansProjects\\proyectojulita\\src\\main\\java\\im\\fondopantallausuario.png")); // NOI18N
         jLabel7.setText("jLabel7");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 380, 260));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 420, 260));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\fondopantallausuario (1).png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Documents\\NetBeansProjects\\proyectojulita\\src\\main\\java\\im\\fondopantallausuario (1).png")); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 540));
 
         jLabel10.setText("Hola querido usuario... ");
@@ -226,23 +357,20 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productoActionPerformed
-        producto li= new producto();
-        li.setVisible(true);
-        
-    }//GEN-LAST:event_productoActionPerformed
+    public  int cantMovimientos()
+    {
+        return movimientos.listar().size();
+    }
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     private void libroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_libroActionPerformed
         // TODO add your handling code here:
         //pantalla libro
-        
-        libro li= new libro(movimientos,stock);
-       
+        this.movimientos = cargarAppMov();
+        this.stock= cargarAppPP();
+        libro li= new libro();
+       this.setVisible(false);
         li.setVisible(true);
         javax.swing.JTable table= li.getTable();
         DefaultTableModel modelo= (DefaultTableModel)table.getModel();
@@ -277,9 +405,29 @@ public class PantallaPrincipalUsuario extends javax.swing.JFrame {
         /*guardar productos y libro*/
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productoActionPerformed
+        productosOfi li = new productosOfi();
+        this.setVisible(false);
+            this.stock = cargarAppPP();
+            if (stock != null) {
 
+                javax.swing.JTable table = li.tabla();
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                ArrayList<Producto> productos = stock.productosMasVendidos();
+                String[] st= new String[4];
+                for (Producto p : productos) {
+                    System.out.println(table.getColumnName(-1));
+                    st = new String[]{ p.getName(),String.valueOf(p.getCantidadStok()), String.valueOf(p.getCantidadVentas()), String.valueOf(p.actualizarPrecio())};
+                    model.addRow(st);
+                    
+                }
+            }
+
+
+            li.setVisible(true);
+
+    }//GEN-LAST:event_productoActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

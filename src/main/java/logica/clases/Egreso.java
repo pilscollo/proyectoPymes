@@ -7,11 +7,11 @@ public class Egreso extends Movimiento{
     private float monto;//se saca con el precio del producto y la cantidad
 
     public Egreso(int id,LocalDate fecha, String detalle, Float monto ) {
-        super(id,fecha,detalle,2);
+        super(id,fecha,detalle,true,2,monto);
         this.monto = monto;
     }
     public Egreso(int id,LocalDate fecha, String detalle, Float monto,boolean estado) {
-        super(id,fecha,detalle,estado,2);
+        super(id,fecha,detalle,estado,2,monto);
         this.monto = monto;
     }
 

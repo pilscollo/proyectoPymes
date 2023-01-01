@@ -58,7 +58,7 @@
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Win10\Desktop\imagenesAPP\avatardefault_92824.png"/>
+          <Image iconType="2" name="C:\Users\Win10\Documents\NetBeansProjects\proyectojulita\src\main\java\im\avatardefault_92824.png"/>
         </Property>
       </Properties>
       <Constraints>
@@ -174,7 +174,7 @@
           <Color blue="e5" green="c9" red="99" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Win10\Desktop\imagenesAPP\1486564399-close_81512.png"/>
+          <Image iconType="2" name="C:\Users\Win10\Documents\NetBeansProjects\proyectojulita\src\main\java\im\cruz.png"/>
         </Property>
         <Property name="alignmentY" type="float" value="0.0"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -196,7 +196,7 @@
           <Color blue="ff" green="cc" red="33" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Win10\Desktop\imagenesAPP\fondousuario.png"/>
+          <Image iconType="2" name="C:\Users\Win10\Documents\NetBeansProjects\proyectojulita\src\main\java\im\pyi.png"/>
         </Property>
       </Properties>
       <Constraints>

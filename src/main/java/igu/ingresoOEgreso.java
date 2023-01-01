@@ -17,11 +17,11 @@ public class ingresoOEgreso extends javax.swing.JFrame {
     /**
      * Creates new form ingresoOEgreso
      */
-    private ArrayList<Producto> productos;
-    public ingresoOEgreso(ArrayList<Producto> productos) {
+
+    public ingresoOEgreso() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.productos= productos;
+
     }
 
     /**
@@ -45,7 +45,7 @@ public class ingresoOEgreso extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         jButton5.setBackground(new java.awt.Color(204, 204, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Desktop\\imagenesAPP\\1486564399-close_81512.png")); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Win10\\Documents\\NetBeansProjects\\proyectojulita\\src\\main\\java\\im\\cruz.png")); // NOI18N
         jButton5.setAlignmentY(0.0F);
         jButton5.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -117,13 +117,16 @@ public class ingresoOEgreso extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         this.setVisible(false);
+        PantallaPrincipalUsuario panta= new PantallaPrincipalUsuario();
+        panta.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        FormularioIngreso in= new FormularioIngreso(productos);
+        FormularioIngreso in= new FormularioIngreso();
         in.setVisible(true);
         this.setVisible(false);
+
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
